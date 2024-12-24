@@ -1,0 +1,55 @@
+** SQL Querys**
+
+SELECT * FROM ocd_patience.ocd_patient_dataset;
+
+/*1. What is the average duration of symptoms for patients diagnosed with OCD?*/
+
+SELECT AVG(`Duration of Symptoms (months)`) AS Average_Duration
+FROM ocd_patient_dataset;
+
+/*2. How many patients have a family history of OCD?*/
+
+SELECT COUNT(*) AS Patients_With_Family_History
+FROM ocd_patient_dataset
+WHERE `Family History of OCD` = 'Yes';
+
+/* 3. What is the most common type of obsession among patients?*/
+
+select `Obsession Type` ,count(*) as count from ocd_patient_dataset
+group by `Obsession Type`
+order by count desc ;
+
+/* 4. How many patients have both depression and anxiety diagnoses?*/
+
+select `Depression Diagnosis`,`Anxiety Diagnosis` ,count(*) as anxiety_Depression from ocd_patient_dataset
+where `Depression Diagnosis`='Yes' and `Anxiety Diagnosis` = 'Yes';
+
+/*5. What is the average Y-BOCS score for obsessions and compulsions grouped by gender?*/
+
+select Gender ,AVG(`Y-BOCS Score (Obsessions)`) as Obsession ,AVG(`Y-BOCS Score (Compulsions)`) as Compulsions
+from ocd_patient_dataset
+group by Gender;
+
+/*6. What are the different medications prescribed and how many patients use each?*/
+
+select `Medications` , count(*) as useage from ocd_patient_dataset
+group by Medications
+order by useage desc;
+
+/*7. What is the marital status distribution of patients diagnosed with OCD?*/
+
+SELECT `Marital Status`, COUNT(*) AS Patient_Count
+FROM ocd_patient_dataset
+GROUP BY `Marital Status`;
+
+/* 8. What is the minimum, maximum, and average age of patients?*/
+
+select Min(Age) from ocd_patient_dataset;
+select max(Age) from ocd_patient_dataset;
+select AVG(Age) from ocd_patient_dataset;
+
+/*9. How many patients have a previous diagnosis of MDD?*/
+
+select `Previous Diagnoses`,Count(*) AS Total from ocd_patient_dataset
+where `Previous Diagnoses` = "MDD";
+
